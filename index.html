@@ -59,11 +59,21 @@
         profileImage.src = profile.pictureUrl;
         const displayName = document.querySelector(".display-name");
         displayName.textContent = profile.displayName;
-
+        // LIFFパラメータが存在する場合には自動送信する
         const urlParams = new URLSearchParams(window.location.search);
         const textParam = urlParams.get('text');
         if (textParam !== null) {
-          sendLiff(text).then(() => {
+          liff.sendMessages([
+            {
+              type: 'text',
+              text: textParam,
+              sentBy: {
+                label: "ねずみぷろじぇくと",
+                iconUrl: "https://raw.githubusercontent.com/nezumi0627/Images/main/happy-cat-happy-happy-cat.gif",
+                linkUrl: "https://discord.gg/ECJtgwc92t"
+              }
+            }
+          ]).then(() => {
             console.log('Message sent');
             liff.closeWindow(); // 送信後にウィンドウを閉じる
           }).catch((error) => {
@@ -75,5 +85,6 @@
       });
     }
   </script>
+
 </body>
 </html>
