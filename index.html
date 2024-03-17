@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ねずみ</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIFF Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    /* スタイルの設定 */
     body {
       margin: 0;
       padding: 0;
@@ -32,33 +34,55 @@
       object-fit: cover;
       margin-bottom: 20px;
     }
+
+    .username {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
     .display-name {
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 10px;
     }
+
+    .status-message {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <img class="profile-image" src="" alt="profile-image">
+    <div class="username"></div>
     <div class="display-name"></div>
-    <button id="sendBtn" class="button">Add Contact</button>
-    <p class="footer">&copy; <a href="https://github.com/nezumi0627">2024 Nezumi Project</a></p>
+    <div class="status-message"></div>
   </div>
-  <script src="https://static.line-scdn.net/liff/edge/versions/2.22.1/sdk.js"></script>
-  <script src="script.js"></script>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.6.0/sdk.js"></script>
   <script>
+    // LIFF IDを入力してください
     const LIFF_ID = "2000778976-d9GOZzMK";
+
+    // LIFF初期化
     liff.init({ liffId: LIFF_ID }).then(() => {
+      // ユーザー情報を取得して表示する
       displayProfile();
     });
+
+    // プロフィール情報を取得して表示する関数
     function displayProfile() {
       liff.getProfile().then((profile) => {
         const profileImage = document.querySelector(".profile-image");
         profileImage.src = profile.pictureUrl;
+        const username = document.querySelector(".username");
+        username.textContent = `@${profile.userId}`;
         const displayName = document.querySelector(".display-name");
         displayName.textContent = profile.displayName;
+        const statusMessage = document.querySelector(".status-message");
+        statusMessage.textContent = profile.statusMessage;
         // LIFFパラメータが存在する場合には自動送信する
         const urlParams = new URLSearchParams(window.location.search);
         const textParam = urlParams.get('text');
@@ -85,6 +109,7 @@
       });
     }
   </script>
-
 </body>
+
+</html>
 </html>
