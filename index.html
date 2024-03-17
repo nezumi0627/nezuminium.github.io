@@ -11,6 +11,13 @@
   <script src="https://static.line-scdn.net/liff/edge/versions/2.22.1/sdk.js"></script>
   <script src="script.js"></script>
   <script>
+    const LIFF_ID = "2000778976-d9GOZzMK";
+
+    // LIFF初期化
+    liff.init({ liffId: LIFF_ID }).then(() => {
+      // ユーザー情報を取得して表示する
+      displayProfile();
+    });
     function displayProfile() {
       liff.getProfile().then((profile) => {
         const profileImage = document.querySelector(".profile-image");
