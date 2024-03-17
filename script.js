@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    await liff.init({ liffId: '2004151744-pBd3JMLd' });
+    await liff.init({ liffId: '2004151744-r2Y5gN3Y' });
 
     const sendBtn = document.getElementById('sendBtn');
     sendBtn.addEventListener('click', handleSendClick);
