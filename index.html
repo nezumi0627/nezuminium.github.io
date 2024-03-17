@@ -1,56 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ねずみ</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      text-align: center;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #333;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      margin: 10px;
-      transition: background-color 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #555;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
-    <img src="liff-starter.js" onload="
-      var img = document.querySelector('img');
-      img.style.borderRadius = '50%';
-      img.style.width = '100px';
-      img.style.height = 'auto';
-    " alt="ユーザーアイコン" id="user-icon">
-    <h2>ねずみ</h2>
-    <p id="sdk-version"></p>
-    <a href="https://line.me/R/nv/profilePopup/mid=u063165605c2a42040e28474023af360d" class="button">Add Contact</a>
-    <p>&copy; 2024 Nezumi Project<br><a href="https://github.com/nezumi0627">https://github.com/nezumi0627</a></p>
+    <img src="liff-starter.js" alt="usericon" id="user-icon" class="user-icon">
+    <h2 class="user-name">ねずみ</h2>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('sendBtn').addEventListener('click', async () => {
+      try {
+        const profile = await liff.getProfile();
+        const { displayName, userId, statusMessage } = profile;
+        const message = `言語設定：${liff.getLanguage()}\nLIFF SDKのバージョン：${liff.getVersion()}\nLINE内ブラウザで動作させているか：${liff.isInClient()}\nログインしているか：${liff.isLoggedIn()}\nOS：${liff.getOS()}\nアクセストークン：${liff.getAccessToken()}\n画面（1対1のチャット、グループ、またはトークルーム）を一意に識別する値：${JSON.stringify(liff.getContext())}\nユーザー名等：ユーザー名：${displayName}\nユーザーID：${userId}\nステータスメッセージ：${statusMessage}`;
+        sendLiff(message);
+      } catch (err) {
+        console.error('Error:', err);
+      }
+    });
+  </script>
+    <button id="sendBtn" class="button">Add Contact</button>
+    <p class="footer">&copy; <a href="https://github.com/nezumi0627">2024 Nezumi Project</a></p>
   </div>
   <script src="https://static.line-scdn.net/liff/edge/versions/2.22.1/sdk.js"></script>
-  <script src="liff-starter.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
 
