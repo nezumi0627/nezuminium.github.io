@@ -8,16 +8,30 @@
 </head>
 <body>
   <div class="container">
-    <img src="liff-starter.js" alt="usericon" id="user-icon" class="user-icon">
-    <h2 class="user-name">ねずみ</h2>
+    <script>
+      async function getProfileData() {
+        try {
+          const profile = await liff.getProfile();
+          const userIcon = document.getElementById('user-icon');
+          const userName = document.querySelector('.user-name');
+          userIcon.src = profile.pictureUrl;
+          userIcon.alt = profile.displayName;
+          userName.textContent = profile.displayName;
+        } catch (error) {
+          console.error(`Error: ${error}`);
+        }
+      }
+      getProfileData();
+    </script>
+
+    <img id="user-icon" class="user-icon">
+    <h2 class="user-name"></h2>
   <script src="script.js"></script>
   <script>
     document.getElementById('sendBtn').addEventListener('click', async () => {
       try {
         const profile = await liff.getProfile();
         const { displayName, userId, statusMessage } = profile;
-        const message = `言語設定：${liff.getLanguage()}\nLIFF SDKのバージョン：${liff.getVersion()}\nLINE内ブラウザで動作させているか：${liff.isInClient()}\nログインしているか：${liff.isLoggedIn()}\nOS：${liff.getOS()}\nアクセストークン：${liff.getAccessToken()}\n画面（1対1のチャット、グループ、またはトークルーム）を一意に識別する値：${JSON.stringify(liff.getContext())}\nユーザー名等：ユーザー名：${displayName}\nユーザーID：${userId}\nステータスメッセージ：${statusMessage}`;
-        sendLiff(message);
       } catch (err) {
         console.error('Error:', err);
       }
@@ -30,4 +44,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
