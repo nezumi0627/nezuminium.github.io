@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="LIFF by Nezumi Project">
+  <meta name="description" content="This is a small web application that demonstrates the basic functionality of the LINE Front-end Framework (LIFF).">
+  <title>Nezumi Project</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/giphy.gif">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: url('https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2, h1 {
+      color: white;
+      margin: 0;
+    }
+    p {
+      color: white;
+      margin-bottom: 20px;
+    }
+    .button {
+      cursor: pointer;
+      background-color: #4CAF50;
+      border: none;
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 5px;
+    }
+    .button.effect:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ねずみ</h2>
+    <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        await liff.init({ liffId: '<LIFF_ID>' });
+        const profile = await liff.getProfile();
+        const displayName = profile.displayName;
+        const userId = profile.userId;
+        const pictureUrl = profile.pictureUrl;
+        const statusMessage = profile.statusMessage;
+        document.getElementById('log').innerText = `displayName:${displayName}\nuserId:${userId}\npictureUrl:${pictureUrl}\nstatusMessage:${statusMessage}`;
+      }
+      catch(err) {
+        document.getElementById('log').innerText = 'init ng\n' + err;
+      }
+    });
+    </script>
+    <br>
+    <p>LINE Liff Page</p>
+    <a href="https://line.me/R/nv/profilePopup/mid=u063165605c2a42040e28474023af360d" class="button effect">Add Contact</a>
+    <h1>&copy; 2024 Nezumi Project</h1>
+  </div>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.22.1/sdk.js"></script>
+  <script src="liff-starter.js"></script>
+</body>
+</html>
+
