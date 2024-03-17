@@ -8,41 +8,32 @@
 </head>
 <body>
   <div class="container">
-    <script>
-      async function getProfileData() {
-        try {
-          const profile = await liff.getProfile();
-          const userIcon = document.getElementById('user-icon');
-          const userName = document.querySelector('.user-name');
-          userIcon.src = profile.pictureUrl;
-          userIcon.alt = profile.displayName;
-          userName.textContent = profile.displayName;
-        } catch (error) {
-          console.error(`Error: ${error}`);
-        }
-      }
-      getProfileData();
-    </script>
-
-    <img id="user-icon" class="user-icon">
-    <h2 class="user-name"></h2>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.22.1/sdk.js"></script>
   <script src="script.js"></script>
   <script>
     document.getElementById('sendBtn').addEventListener('click', async () => {
       try {
+        await liff.init({ liffId: '2004151744-pBd3JMLd' });
         const profile = await liff.getProfile();
-        const { displayName, userId, statusMessage } = profile;
+        const { displayName, userId, statusMessage, pictureUrl } = profile;
+        const profileImage = document.querySelector(".profile-image");
+        profileImage.src = pictureUrl;
+        const username = document.querySelector(".username");
+        username.textContent = `@${userId}`;
+        const displayNameElement = document.querySelector(".display-name");
+        displayNameElement.textContent = displayName;
+        const statusMessageElement = document.querySelector(".status-message");
+        statusMessageElement.textContent = statusMessage;
       } catch (err) {
         console.error('Error:', err);
       }
     });
   </script>
+    <img class="profile-image" alt="Profile Image" />
+    <p class="username"></p>
+    <p class="display-name"></p>
     <button id="sendBtn" class="button">Add Contact</button>
     <p class="footer">&copy; <a href="https://github.com/nezumi0627">2024 Nezumi Project</a></p>
   </div>
-  <script src="https://static.line-scdn.net/liff/edge/versions/2.22.1/sdk.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>
-
-
