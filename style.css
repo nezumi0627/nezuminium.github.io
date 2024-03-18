@@ -1,0 +1,92 @@
+/*
+ * LIFFプロフィール表示用CSS - リニューアル
+ */
+
+/* レイアウト用スタイル */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #111111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 600px;
+  padding: 40px;
+  background-color: #333333;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 画像スタイル */
+.profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* テキストスタイル */
+.status-message {
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  color: #ebebeb;
+  line-height: 1.6;
+}
+
+
+/*
+ * LIFFプロフィール表示用CSS - リニューアル
+ */
+
+/* レイアウト用スタイル */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background-color: #111111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 600px;
+  padding: 40px;
+  background-color: #333333;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 画像スタイル */
+.profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* テキストスタイル */
+.status-message {
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  color: #ebebeb;
+  line-height: 1.6;
+}
+
+
