@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var liffId = "2004151744-r2Y5gN3Y";
     initializeLiff(liffId);
-});
+})
 
 function initializeLiff(liffId) {
     liff
@@ -13,10 +13,43 @@ function initializeLiff(liffId) {
                 window.alert("LINEアカウントにログインしてください。");
                 liff.login();
             }
+            displayProfile(); // LIFF初期化後にプロフィールを表示する
         })
         .catch((err) => {
             console.log('LIFF Initialization failed ', err);
         });
+}
+
+function displayProfile() {
+    liff.getProfile().then((profile) => {
+        const profileImage = document.querySelector(".profile-image");
+        profileImage.src = profile.pictureUrl;
+        const displayName = document.querySelector(".display-name");
+        displayName.textContent = profile.displayName;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const textParam = urlParams.get('text');
+        if (textParam !== null) {
+            liff.sendMessages([
+                {
+                    type: 'text',
+                    text: textParam,
+                    sentBy: {
+                        label: "ねずみぷろじぇくと",
+                        iconUrl: "https://raw.githubusercontent.com/nezumi0627/flex-images/main/nR4L10XlJcSeQ.gif",
+                        linkUrl: "https://github.com/nezumi0627"
+                    }
+                }
+            ]).then(() => {
+                console.log('Message sent');
+                liff.closeWindow();
+            }).catch((error) => {
+                console.error(`Error sending message: ${error}`);
+            });
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
 }
 
 function sendMessage(text) {
