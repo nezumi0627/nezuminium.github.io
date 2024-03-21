@@ -5,24 +5,66 @@
     <title>404 Not Found</title>
     <style>
         body {
-            background-color: #111;
-            color: #ccc;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            font-size: 12px;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .twinkling {
+            background: url('https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/stars.png') repeat top center;
+            background-size: 100% 100%;
+            animation: move-twink-back 200s linear infinite;
+        }
+
+        @keyframes move-twink-back {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: -10000px 5000px;
+            }
         }
 
         .error-container {
-            margin: 5% auto;
-            max-width: 300px;
-            background-color: #222;
-            padding: 10px;
-            border-radius: 5px; /* 角を丸くする */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            max-width: 100vw;
+            color: #ccc;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .error-image {
+            width: 150px;
+            height: 150px;
+            background-image: url('https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/icon.png');
+            background-size: cover;
+            border-radius: 8px;
+        }
+
+        .error-message {
+            margin: 0 16px;
         }
 
         h1 {
             color: #f44336;
             font-size: 1.2em;
+            margin: 0;
         }
 
         p {
@@ -37,29 +79,23 @@
         a:hover {
             text-decoration: underline;
         }
-
-        .error-image {
-            width: 70px;
-            height: 70px;
-            background-image: url('https://raw.githubusercontent.com/nezumi0627/nezumi0627.github.io/main/icon.png');
-            background-size: cover;
-            margin: 0 auto 5px;
-            border-radius: 3.5px; /* 画像を丸くする */
-        }
     </style>
 </head>
 <body>
+    <div class="stars twinkling"></div>
     <div class="error-container">
         <div class="error-image"></div>
-        <h1>404 Not Found</h1>
-        <p>申し訳ありませんが、リクエストしたページは見つかりませんでした。</p>
-        <p><a href="/">ホームページに戻る</a></p>
+        <div class="error-message">
+            <h1>404 Not Found</h1>
+            <p>申し訳ありませんが、リクエストしたページは見つかりませんでした。</p>
+            <p><a href="/">ホームページに戻る</a></p>
+        </div>
     </div>
     <script>
         // ホームページに戻るリンクのクリックイベントを設定
         document.querySelector('a').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '/';
+            window.location.href = '/nezuminium.github.io/';
         });
     </script>
 </body>
