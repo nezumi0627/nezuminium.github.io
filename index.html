@@ -102,16 +102,16 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://static.line-scdn.net/liff/edge/2.15/sdk.js"></script>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.6.0/sdk.js"></script>
   <script>
     const LIFF_ID = "2004151744-r2Y5gN3Y";
     liff.init({ liffId: LIFF_ID }).then(() => {
       initializeLiff(LIFF_ID);
     });
 
-    async function initializeLiff(liffId) {
+    function initializeLiff(liffId) {
       try {
-        await liff.init({ liffId });
+        liff.init({ liffId });
         if (!liff.isLoggedIn()) {
           window.alert("LINEアカウントにログインしてください。");
           liff.login();
@@ -134,8 +134,8 @@
             text: textParam,
             sentBy: {
               label: "ねずみぷろじぇくと",
-              iconUrl: "https://raw.githubusercontent.com/nezumi0627/Images/main/happy-cat-happy-happy-cat.gif",
-              linkUrl: "https://discord.gg/ECJtgwc92t"
+              iconUrl: "https://raw.githubusercontent.com/nezumi0627/flex-images/main/nR4L10XlJcSeQ.gif",
+              linkUrl: "https://nezumi0627.github.io/nezuminium.github.io/"
             }
           }
         ]).then(() => {
