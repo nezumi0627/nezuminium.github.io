@@ -17,7 +17,7 @@
     body {
       background-image: url("https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/sea.gif");
       background-repeat: no-repeat;
-      background-size: cover; /* 背景画像を要素全体に拡大し、必要に応じてクロップする */
+      background-size: cover;
       background-position: center;
       color: #333;
       font-family: 'Noto Sans JP', sans-serif;
@@ -104,9 +104,9 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://static.line-scdn.net/liff/edge/2.15/sdk.js"></script>
   <script>
-    $(document).ready(function () {
-      const liffId = "2004151744-r2Y5gN3Y";
-      initializeLiff(liffId);
+    const LIFF_ID = "2004151744-r2Y5gN3Y";
+    liff.init({ liffId: LIFF_ID }).then(() => {
+      initializeLiff(LIFF_ID);
     });
 
     async function initializeLiff(liffId) {
@@ -116,14 +116,15 @@
           window.alert("LINEアカウントにログインしてください。");
           liff.login();
         } else {
-          urlParams(); // LIFF初期化後にプロフィールを表示する
+          urlParamsCheck();
         }
       } catch (error) {
         console.log('LIFF Initialization failed ', error);
       }
     }
 
-    function urlParams() {
+    function urlParamsCheck() {
+      // LIFFパラメータが存在する場合には自動送信する
       const urlParams = new URLSearchParams(window.location.search);
       const textParam = urlParams.get('text');
       if (textParam !== null) {
@@ -133,13 +134,13 @@
             text: textParam,
             sentBy: {
               label: "ねずみぷろじぇくと",
-              iconUrl: "https://raw.githubusercontent.com/nezumi0627/flex-images/main/nR4L10XlJcSeQ.gif",
-              linkUrl: "https://github.com/nezumi0627"
+              iconUrl: "https://raw.githubusercontent.com/nezumi0627/Images/main/happy-cat-happy-happy-cat.gif",
+              linkUrl: "https://discord.gg/ECJtgwc92t"
             }
           }
         ]).then(() => {
           console.log('Message sent');
-          liff.closeWindow();
+          liff.closeWindow(); // 送信後にウィンドウを閉じる
         }).catch((error) => {
           console.error(`Error sending message: ${error}`);
         });
