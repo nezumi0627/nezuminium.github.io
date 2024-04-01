@@ -3,105 +3,100 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>LIFF Profile</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://static.line-scdn.net/liff/edge/2.6.0/sdk.css">
-  <meta property="og:title" content="Nezumi's Liff page">
-  <meta property="og:description" content="Liff page from nezumi">
-  <meta property="og:image" content="https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/icon.png">
-  <meta property="og:url" content="https://nezumi0627.github.io/nezuminium.github.io/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Nezumi project">
-  <meta property="og:locale" content="ja">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nezumi Liff</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> <!-- CSSファイルのリンク -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-
   <style>
     body {
-      background: linear-gradient(60deg, #000, #00000088, #000);
-      background-size: 400% 400%;
-      animation: gradient 10s ease infinite;
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
+      background-image: url("https://64.media.tumblr.com/3a933563c4301dbbe23356ce78b6e526/0a9284ac54209dc9-f6/s1280x1920/9072eb121c584a602e9e5ea43187dcf382758a92.gif");
+      background-repeat: no-repeat;
+      background-size: auto auto; /* サイズを調整 */
+      background-position: center;
     }
-
-    @keyframes gradient {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    .container {
-      position: relative;
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      text-align: center;
+      font-size: 12px;
+      line-height: 20px;
     }
-
-    .profile-image {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      margin-bottom: 20px;
+    .copyright {
+      display: inline-block;
+      text-align: center;
     }
-
-    .display-name {
-      font-size: 24px;
-      font-weight: 500;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-
-    .button-container {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .button {
-      margin-bottom: 10px;
-      padding: 10px 20px;
-      background-color: #2b353d;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .button:hover {
-      background-color: #232629;
+    .year {
+      font-size: 0.7em;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <img class="profile-image" src="" alt="profile-image">
-    <div class="display-name"></div>
+    <h1 class="title">Nezumi-Project</h1>
     <div class="button-container">
-      <button id="line-button" class="button">LINEで友達追加</button>
-      <button id="github-button" class="button">Github</button>
+      <a class="button" id="line-button">LINE</a>
+      <a class="button" id="github-button">GitHub</a>
     </div>
   </div>
+  <div class="footer">
+    <span class="copyright">
+      &copy;
+      <span class="year">2024</span>
+      Nezumi Project
+    </span>
+  </div>
 
-  <script src="https://static.line-scdn.net/liff/edge/versions/2.6.0/sdk.js"></script>
-  <script src="liff.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var liffId = "2004151744-r2Y5gN3Y";
+      initializeLiff(liffId);
+    });
+
+    function initializeLiff(liffId) {
+      liff
+        .init({
+          liffId: liffId
+        })
+        .then(() => {
+          if (!liff.isInClient() && !liff.isLoggedIn()) {
+            window.alert("LINEアカウントにログインしてください。");
+            liff.login();
+          }
+          urlParams(); // LIFF初期化後にプロフィールを表示する
+        })
+        .catch((err) => {
+          console.log('LIFF Initialization failed ', err);
+        });
+    }
+
+    function urlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const textParam = urlParams.get('text');
+      if (textParam !== null) {
+        liff.sendMessages([
+          {
+            type: 'text',
+            text: textParam,
+            sentBy: {
+              label: "ねずみぷろじぇくと",
+              iconUrl: "https://raw.githubusercontent.com/nezumi0627/flex-images/main/nR4L10XlJcSeQ.gif",
+              linkUrl: "https://github.com/nezumi0627"
+            }
+          }
+        ]).then(() => {
+          console.log('Message sent');
+          liff.closeWindow();
+        }).catch((error) => {
+          console.error(`Error sending message: ${error}`);
+        });
+      }
+    }
+  </script>
 </body>
 
 </html>
