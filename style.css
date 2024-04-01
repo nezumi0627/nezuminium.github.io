@@ -1,75 +1,76 @@
 /* Reset styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-image: url("https://64.media.tumblr.com/3a933563c4301dbbe23356ce78b6e526/0a9284ac54209dc9-f6/s1280x1920/9072eb121c584a602e9e5ea43187dcf382758a92.gif");
-  background-repeat: no-repeat;
-  background-size: cover; /* 背景画像を要素全体に拡大し、必要に応じてクロップする */
-  background-position: center;
-  color: #333;
-  font-family: 'Noto Sans JP', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
-  text-align: center;
-}
-
-.title {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  color: #1e1e1e;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-
-.button {
-  padding: 12px 24px;
-  margin: 0 10px;
-  background-color: transparent;
-  color: #000000;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-  box-shadow: none;
-}
-
-.button:hover {
-  background-color: rgba(0, 0, 0, 0.356);
-  border-color: #ccc;
-}
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  line-height: 20px;
-}
-
-.copyright {
-  display: inline-block;
-  text-align: center;
-}
-
-.year {
-  font-size: 0.7em;
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-image: url("https://64.media.tumblr.com/3a933563c4301dbbe23356ce78b6e526/0a9284ac54209dc9-f6/s1280x1920/9072eb121c584a602e9e5ea43187dcf382758a92.gif");
+    background-repeat: no-repeat;
+    background-size: cover; /* 背景画像を要素全体に拡大し、必要に応じてクロップする */
+    background-position: center;
+    color: #333;
+    font-family: 'Noto Sans JP', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #1e1e1e;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .button {
+    padding: 12px 24px;
+    margin: 0 10px;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    box-shadow: none;
+  }
+  
+  .button:hover {
+    background-color: rgba(0, 0, 0, 0.356);
+    border-color: #ccc;
+  }
+  
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  
+  .copyright {
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .year {
+    font-size: 0.7em;
+  }
+  
