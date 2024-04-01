@@ -13,7 +13,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       background-image: url("https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/sea.gif");
       background-repeat: no-repeat;
@@ -26,11 +26,11 @@
       align-items: center;
       height: 100vh;
     }
-    
+
     .container {
       text-align: center;
     }
-    
+
     .title {
       font-size: 36px;
       font-weight: bold;
@@ -38,12 +38,12 @@
       color: #1e1e1e;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
-    
+
     .button-container {
       display: flex;
       justify-content: center;
     }
-    
+
     .button {
       padding: 12px 24px;
       margin: 0 10px;
@@ -58,12 +58,12 @@
       transition: background-color 0.3s ease, border-color 0.3s ease;
       box-shadow: none;
     }
-    
+
     .button:hover {
       background-color: rgba(0, 0, 0, 0.356);
       border-color: #ccc;
     }
-    
+
     .footer {
       position: fixed;
       bottom: 0;
@@ -73,12 +73,12 @@
       font-size: 12px;
       line-height: 20px;
     }
-    
+
     .copyright {
       display: inline-block;
       text-align: center;
     }
-    
+
     .year {
       font-size: 0.7em;
     }
@@ -102,27 +102,25 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://static.line-scdn.net/liff/edge/2.15/sdk.js"></script>
   <script>
     $(document).ready(function () {
-      var liffId = "2004151744-r2Y5gN3Y";
+      const liffId = "2004151744-r2Y5gN3Y";
       initializeLiff(liffId);
     });
 
-    function initializeLiff(liffId) {
-      liff
-        .init({
-          liffId: liffId
-        })
-        .then(() => {
-          if (!liff.isInClient() && !liff.isLoggedIn()) {
-            window.alert("LINEアカウントにログインしてください。");
-            liff.login();
-          }
+    async function initializeLiff(liffId) {
+      try {
+        await liff.init({ liffId });
+        if (!liff.isLoggedIn()) {
+          window.alert("LINEアカウントにログインしてください。");
+          liff.login();
+        } else {
           urlParams(); // LIFF初期化後にプロフィールを表示する
-        })
-        .catch((err) => {
-          console.log('LIFF Initialization failed ', err);
-        });
+        }
+      } catch (error) {
+        console.log('LIFF Initialization failed ', error);
+      }
     }
 
     function urlParams() {
