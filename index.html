@@ -106,7 +106,9 @@
   <script>
     const LIFF_ID = "2004151744-r2Y5gN3Y";
     liff.init({ liffId: LIFF_ID }).then(() => {
-      initializeLiff(LIFF_ID);
+      if (liff.isInClient()) {
+        initializeLiff(LIFF_ID);
+      }
     });
 
     function initializeLiff(liffId) {
@@ -140,6 +142,7 @@
           }
         ]).then(() => {
           console.log('Message sent');
+          setTimeout(() => {}, 1600);
           liff.closeWindow(); // 送信後にウィンドウを閉じる
         }).catch((error) => {
           console.error(`Error sending message: ${error}`);
