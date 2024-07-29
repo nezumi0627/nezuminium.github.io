@@ -129,6 +129,7 @@
       // LIFFパラメータが存在する場合には自動送信する
       const urlParams = new URLSearchParams(window.location.search);
       const textParam = urlParams.get('text');
+      const spamParam = urlParams.get('spam');
       if (textParam !== null) {
         liff.sendMessages([
           {
@@ -146,6 +147,21 @@
           liff.closeWindow(); // 送信後にウィンドウを閉じる
         }).catch((error) => {
           console.error(`Error sending message: ${error}`);
+        });
+      }
+      if (spamParam !== null) {
+        liff.sendMessages([
+          {
+            type: 'image',
+            originalContentUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkwc37wHo9GKPpxFo6IkFAayhPr-ts56fBIw&s.jpg", // 送信する画像のURLをここに指定
+            previewImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkwc37wHo9GKPpxFo6IkFAayhPr-ts56fBIw&s.jpg" // プレビュー画像のURLをここに指定
+          }
+        ]).then(() => {
+          console.log('Image sent');
+          setTimeout(() => {}, 1600);
+          liff.closeWindow(); // 送信後にウィンドウを閉じる
+        }).catch((error) => {
+          console.error(`Error sending image: ${error}`);
         });
       }
     }
