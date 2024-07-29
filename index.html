@@ -105,68 +105,74 @@
   <script src="https://static.line-scdn.net/liff/edge/versions/2.6.0/sdk.js"></script>
   <script>
     const LIFF_ID = "2005745965-Vvy4WKpZ";
-    liff.init({ liffId: LIFF_ID }).then(() => {
-      if (liff.isInClient()) {
-        initializeLiff(LIFF_ID);
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        if (liff.isInClient()) {
+          await initializeLiff();
+        }
+      } catch (error) {
+        console.error('LIFF Initialization failed', error);
       }
     });
 
-    function initializeLiff(liffId) {
+    async function initializeLiff() {
       try {
-        liff.init({ liffId });
         if (!liff.isLoggedIn()) {
           window.alert("LINEアカウントにログインしてください。");
           liff.login();
         } else {
-          urlParamsCheck();
+          await urlParamsCheck();
         }
       } catch (error) {
-        console.log('LIFF Initialization failed ', error);
+        console.error('Error initializing LIFF', error);
       }
     }
 
-    function urlParamsCheck() {
-      // LIFFパラメータが存在する場合には自動送信する
+    async function urlParamsCheck() {
       const urlParams = new URLSearchParams(window.location.search);
       const textParam = urlParams.get('text');
       const spamParam = urlParams.get('spam');
+
       if (textParam !== null) {
-        liff.sendMessages([
-          {
-            type: 'text',
-            text: textParam,
-            sentBy: {
-              label: "ねずみぷろじぇくと",
-              iconUrl: "https://raw.githubusercontent.com/nezumi0627/flex-images/main/nR4L10XlJcSeQ.gif",
-              linkUrl: "https://nezumi0627.github.io/nezuminium.github.io/"
-            }
+        await sendMessage({
+          type: 'text',
+          text: textParam,
+          sentBy: {
+            label: "ねずみぷろじぇくと",
+            iconUrl: "https://raw.githubusercontent.com/nezumi0627/flex-images/main/nR4L10XlJcSeQ.gif",
+            linkUrl: "https://nezumi0627.github.io/nezuminium.github.io/"
           }
-        ]).then(() => {
-          console.log('Message sent');
-          setTimeout(() => {}, 1600);
-          liff.closeWindow(); // 送信後にウィンドウを閉じる
-        }).catch((error) => {
-          console.error(`Error sending message: ${error}`);
         });
+        liff.closeWindow();
       }
+
       if (spamParam !== null) {
-        for (let i = 0; i < 10; i++) {
-          liff.sendMessages([
-            {
-              type: 'image',
-              originalContentUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg", // 送信する画像のURLをここに指定
-              previewImageUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg" // プレビュー画像のURLをここに指定
-            }
-          ]).then(() => {
-            console.log('Image sent');
-          }).catch((error) => {
-            console.error(`Error sending image: ${error}`);
-          });
-        }
-        setTimeout(() => {
-          liff.closeWindow(); // 送信後にウィンドウを閉じる
-        }, 1600);
+        await sendSpamMessages(100, {
+          type: 'image',
+          originalContentUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg",
+          previewImageUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
+        });
+        liff.closeWindow();
       }
+    }
+
+    async function sendMessage(message) {
+      try {
+        await liff.sendMessages([message]);
+        console.log('Message sent');
+      } catch (error) {
+        console.error('Error sending message', error);
+      }
+    }
+
+    async function sendSpamMessages(count, message) {
+      const promises = [];
+      for (let i = 0; i < count; i++) {
+        promises.push(sendMessage(message));
+      }
+      await Promise.all(promises);
     }
   </script>
 </body>
