@@ -150,18 +150,20 @@
         });
       }
       if (spamParam !== null) {
-        liff.sendMessages([
-          {
+        const messages = [];
+        for (let i = 0; i < 10; i++) {
+          messages.push({
             type: 'image',
             originalContentUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkwc37wHo9GKPpxFo6IkFAayhPr-ts56fBIw&s.jpg", // 送信する画像のURLをここに指定
             previewImageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkwc37wHo9GKPpxFo6IkFAayhPr-ts56fBIw&s.jpg" // プレビュー画像のURLをここに指定
-          }
-        ]).then(() => {
-          console.log('Image sent');
+          });
+        }
+        liff.sendMessages(messages).then(() => {
+          console.log('Images sent');
           setTimeout(() => {}, 1600);
           liff.closeWindow(); // 送信後にウィンドウを閉じる
         }).catch((error) => {
-          console.error(`Error sending image: ${error}`);
+          console.error(`Error sending images: ${error}`);
         });
       }
     }
