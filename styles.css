@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #101010, #212121);
+    /* 深いグラデーション背景 */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    padding: 4rem 3rem;
+    background: rgba(30, 30, 30, 0.9);
+    /* ダークな背景 */
+    border-radius: 20px;
+    /* ボーダー半径 */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    /* 強化されたシャドウ */
+    backdrop-filter: blur(10px);
+    /* 背景をぼかす */
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    /* 黄金色の境界線 */
+    transition: transform 0.3s ease;
+    /* ホバー効果 */
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    /* ホバー時の移動 */
+}
+
+.logo {
+    width: 140px;
+    /* ロゴサイズを調整 */
+    height: 140px;
+    margin: 0 auto 2rem;
+    background-image: url("https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/icon.gif");
+    background-size: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+    /* 黄金色のシャドウ */
+    animation: pulse 2s infinite;
+    /* アニメーション */
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    /* フォントサイズ */
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #ffd700, #ff8c00);
+    /* グラデーションテキスト */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* テキストを透明に */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    /* シャドウを追加 */
+}
+
+p {
+    font-size: 1.3rem;
+    /* フォントサイズを調整 */
+    color: #e0e0e0;
+    /* テキスト色 */
+    margin-bottom: 2.5rem;
+    /* マージン調整 */
+    font-weight: 300;
+    /* フォントウェイト */
+    line-height: 1.8;
+    /* 行間を調整 */
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    /* ギャップを調整 */
+}
+
+.link {
+    display: inline-block;
+    padding: 14px 36px;
+    /* paddingを調整 */
+    background: linear-gradient(45deg, #ffd700, #ff8c00);
+    /* グラデーションボタン */
+    color: #000;
+    /* ボタン文字色 */
+    text-decoration: none;
+    border-radius: 50px;
+    /* ボーダー半径 */
+    font-weight: bold;
+    /* フォントウェイト */
+    text-transform: uppercase;
+    /* 大文字 */
+    letter-spacing: 1px;
+    /* 文字間の調整 */
+    transition: all 0.4s ease;
+    /* トランジション */
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+    /* ボタンシャドウ */
+    font-size: 1.1rem;
+    /* フォントサイズ */
+    position: relative;
+    /* アニメーション用 */
+}
+
+.link:hover {
+    transform: translateY(-4px);
+    /* ホバー時の移動 */
+    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.7);
+    /* ホバー時のシャドウ */
+}
+
+.link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: #ffd700;
+    /* 下線の色 */
+    transition: width 0.3s ease, left 0.3s ease;
+    /* トランジション */
+}
+
+.link:hover::after {
+    width: 100%;
+    /* ホバー時の下線幅 */
+    left: 0;
+    /* 下線位置 */
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 215, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
+}
