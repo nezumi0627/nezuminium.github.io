@@ -4,24 +4,178 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nezumi Project</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="styles.css"> <!-- CSSファイルをリンク -->
+  <title>Nezumi Liff</title>
+  <link rel="icon" href="icon.png" type="image/x-icon">
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url("https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/sea.gif");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      color: #333;
+      font-family: 'Noto Sans JP', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #1e1e1e;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .button {
+      padding: 12px 24px;
+      margin: 0 10px;
+      background-color: transparent;
+      color: #000000;
+      border: 1px solid rgb(0, 0, 0);
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      box-shadow: none;
+    }
+
+    .button:hover {
+      background-color: rgba(0, 0, 0, 0.356);
+      border-color: #ccc;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      line-height: 20px;
+    }
+
+    .copyright {
+      display: inline-block;
+      text-align: center;
+    }
+
+    .year {
+      font-size: 0.7em;
+    }
+  </style>
 </head>
 
 <body>
   <div class="container">
-    <div class="logo"></div>
-    <h1>Nezumi Project</h1>
-    <p>Send Liff Message Tool</p> <!-- テキストを変更 -->
-    <div class="links">
-      <a href="https://line.me/R/nv/profilePopup/mid=u11f0e30f6f19d0019685f3152f25d242" class="link">LINE</a>
-      <a href="https://github.com/nezumi0627" class="link">GitHub</a>
+    <h1 class="title">Nezumi-Project</h1>
+    <div class="button-container">
+      <a class="button" id="line-button"
+        href="https://line.me/R/nv/profilePopup/mid=u11f0e30f6f19d0019685f3152f25d242">LINE</a>
+      <a class="button" id="github-button" href="https://github.com/nezumi0627">GitHub</a>
     </div>
   </div>
-  <script src="script.js"></script> <!-- JSファイルをリンク -->
+  <div class="footer">
+    <span class="copyright">
+      &copy;
+      <span class="year">2024</span>
+      Nezumi Project
+    </span>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.6.0/sdk.js"></script>
+  <script>
+    const LIFF_ID = "2005745965-Vvy4WKpZ";
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        if (liff.isInClient()) {
+          await initializeLiff();
+        }
+      } catch (error) {
+        console.error('LIFF Initialization failed', error);
+      }
+    });
+
+    async function initializeLiff() {
+      try {
+        if (!liff.isLoggedIn()) {
+          window.alert("LINEアカウントにログインしてください。");
+          liff.login();
+        } else {
+          await urlParamsCheck();
+        }
+      } catch (error) {
+        console.error('Error initializing LIFF', error);
+      }
+    }
+
+    async function urlParamsCheck() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const textParam = urlParams.get('text');
+      const spamParam = urlParams.get('spam');
+
+      if (textParam !== null) {
+        await sendMessage({
+          type: 'text',
+          text: textParam,
+          sentBy: {
+            label: "ねずみぷろじぇくと",
+            iconUrl: "https://raw.githubusercontent.com/nezumi0627/nezuminium.github.io/main/icon.gif",
+            linkUrl: "https://nezumi0627.github.io/nezuminium.github.io/"
+          }
+        });
+        liff.closeWindow();
+      }
+
+      if (spamParam !== null) {
+        await sendSpamMessages(100, {
+          type: 'image',
+          originalContentUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg",
+          previewImageUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
+        });
+        liff.closeWindow();
+      }
+    }
+
+    async function sendMessage(message) {
+      try {
+        await liff.sendMessages([message]);
+        console.log('Message sent');
+      } catch (error) {
+        console.error('Error sending message', error);
+      }
+    }
+
+    async function sendSpamMessages(count, message) {
+      const promises = [];
+      for (let i = 0; i < count; i++) {
+        promises.push(sendMessage(message));
+      }
+      await Promise.all(promises);
+    }
+  </script>
 </body>
 
 </html>
