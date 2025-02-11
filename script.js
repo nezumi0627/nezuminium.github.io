@@ -56,23 +56,36 @@ async function sendSpamMessages() {
             "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
     };
 
-    const batchSize = 15;  // 一度に送信するメッセージ数
-    const totalMessages = 1000000;  // 送信回数
-    let sentCount = 0;
+    const batchSize = 5; // 1回のリクエストで送るメッセージ数
+    const totalMessages = 1000000; // 送信する総メッセージ数
+    const requestCount = Math.ceil(totalMessages / batchSize); // 必要なリクエスト回数
 
-    for (let i = 0; i < totalMessages; i += batchSize) {
-        try {
-            const batch = Array(batchSize).fill(message);
-            await liff.sendMessages(batch);
-            sentCount += batchSize;
-            if (sentCount % 100 === 0) {
-                console.log(`Sent ${sentCount} messages`);
-            }
-        } catch (error) {
-            console.error(`Error sending batch at count ${sentCount}:`, error);
+    console.log(`Starting to send ${totalMessages} messages in ${requestCount} requests...`);
+
+    let promises = [];
+
+    for (let i = 0; i < requestCount; i++) {
+        const batch = Array(batchSize).fill(message);
+        promises.push(liff.sendMessages(batch).catch(error => {
+            console.error(`Error sending batch at request ${i}:`, error);
+        }));
+
+        // 一定回数ごとにログ出力
+        if (i % 1000 === 0) {
+            console.log(`Sent ${i * batchSize} messages so far...`);
+        }
+
+        // 並列リクエストが多すぎると負荷がかかるので、適宜処理を待つ
+        if (promises.length >= 50) {
+            await Promise.all(promises);
+            promises = [];
         }
     }
 
+    // 残りのリクエストを送信
+    await Promise.all(promises);
+
+    console.log(`All ${totalMessages} messages sent successfully!`);
     liff.closeWindow();
 }
 
