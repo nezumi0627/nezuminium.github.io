@@ -27,7 +27,7 @@ async function initializeLiff() {
 async function checkUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const textParam = urlParams.get("text");
-    const spamParam = urlParams.get("spam") || urlParams.get("abc");
+    const spamParam = urlParams.get("spam") || urlParams.get("abcd");
 
     if (textParam !== null) {
         await sendMessage({
