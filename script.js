@@ -51,9 +51,9 @@ async function sendSpamMessages() {
     const message = {
         type: "image",
         originalContentUrl:
-            "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHrB9UrU-j2bp5YcVLCUaXS3MQ5Dh_d2192gJlcaAivklAaMDtLx_GSxPVZOFklf5Pmyc&usqp=CAU",
         previewImageUrl:
-            "https://ogami110.com/33namevoice/wp-content/uploads/2022/03/%E5%AF%9D%E5%8F%96%E3%82%89%E3%82%8C%E8%AA%BF%E6%95%99_7.jpg"
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHrB9UrU-j2bp5YcVLCUaXS3MQ5Dh_d2192gJlcaAivklAaMDtLx_GSxPVZOFklf5Pmyc&usqp=CAU"
     };
 
     const batchSize = 5; // 1回のリクエストで送るメッセージ数
