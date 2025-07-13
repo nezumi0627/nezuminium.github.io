@@ -1,4 +1,4 @@
-const LIFF_ID = "2005745965-Vvy4WKpZ";
+const LIFF_ID = "2005745965-aPK89ROX";
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
